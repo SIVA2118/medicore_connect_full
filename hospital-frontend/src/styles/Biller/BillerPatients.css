@@ -1,0 +1,98 @@
+.biller-patients-container {
+    padding: 2rem;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.split-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.patient-column {
+    background: var(--slate-50);
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--slate-200);
+}
+
+.column-header {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slate-700);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.patients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.patient-card-biller {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    border: 1px solid var(--slate-200);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.patient-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.patient-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--primary-100);
+    color: var(--primary-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.patient-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--slate-900);
+}
+
+.patient-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--slate-500);
+}
+
+.btn-create-bill {
+    background: var(--primary-600);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.no-patients {
+    text-align: center;
+    color: var(--slate-400);
+    padding: 2rem;
+    font-style: italic;
+}

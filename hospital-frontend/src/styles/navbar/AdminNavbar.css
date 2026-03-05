@@ -1,0 +1,342 @@
+/* ================= LAYOUT CONTAINER ================= */
+:root {
+    --navbar-height: 60px;
+    --sidebar-width: 220px;
+    --bottom-nav-height: 70px;
+}
+
+/* ================= TOP NAVBAR ================= */
+.app-navbar {
+    height: var(--navbar-height);
+    background: white;
+    border-bottom: 3px solid var(--primary-500);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.app-navbar .left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.app-navbar h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-800);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.app-navbar h3::before {
+    content: "✚";
+    background: var(--primary-500);
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* Hide Hamburger Menu on Mobile (Since we have Bottom Bar) */
+.menu-btn {
+    display: none;
+}
+
+.app-navbar .right {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.role-badge {
+    display: none;
+}
+
+.logout-btn {
+    background: transparent;
+    color: var(--slate-600);
+    border: 1px solid var(--slate-300);
+    padding: 0.35rem 0.85rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* ================= MOBILE BOTTOM NAVIGATION (DOWNBAR) ================= */
+/* ================= MOBILE BOTTOM NAVIGATION (DOWNBAR) ================= */
+.app-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Full Mobile Display View */
+    height: var(--bottom-nav-height);
+    background: #ffffff;
+    border-top: 1px solid var(--slate-200);
+    border-right: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    /* Horizontal */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Ensure high z-index */
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+    transform: none;
+    /* Always visible */
+}
+
+/* Clean up unnecessary elements for mobile nav */
+.app-sidebar h4 {
+    display: none;
+}
+
+.app-sidebar.open {
+    transform: none;
+    box-shadow: none;
+}
+
+.overlay {
+    display: none;
+}
+
+.app-sidebar ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.app-sidebar li {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* Icon Top, Text Bottom */
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    gap: 4px;
+    color: var(--slate-400);
+    font-weight: 600;
+    transition: all 0.2s;
+    border-left: none;
+    border-top: 3px solid transparent;
+    cursor: pointer;
+    height: 100%;
+    font-size: 0.8rem;
+    /* Scaled down for mobile */
+}
+
+.app-sidebar li:hover {
+    background: var(--primary-50);
+    color: var(--primary-700);
+}
+
+.app-sidebar li.active {
+    background: transparent;
+    color: var(--primary-700);
+    border-top-color: var(--primary-500);
+    border-left-color: transparent;
+}
+
+.app-sidebar li span:first-child {
+    font-size: 1.4rem;
+    display: block;
+    line-height: 1;
+}
+
+.menu-label {
+    font-size: 0.65rem;
+    display: block;
+}
+
+/* ================= GLOBAL LAYOUT ================= */
+body {
+    padding-top: var(--navbar-height) !important;
+    padding-bottom: var(--bottom-nav-height) !important;
+    /* Mobile padding for downbar */
+    padding-left: 0 !important;
+    /* Full width on mobile */
+    min-height: 100vh;
+}
+
+/* Ensure all page containers are full width on mobile */
+.admin-dashboard,
+.doctor-dashboard-container,
+.mypatients-page-wrapper,
+.patient-details-container,
+.report-container,
+.reports-page,
+.reports-page-v2,
+.prescription-container,
+.profile-container,
+.availability-container,
+.add-patient-container,
+.patient-list-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1rem;
+    /* Internal spacing */
+    box-sizing: border-box;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+/* ================= DESKTOP STYLES (Min-Width: 1024px) ================= */
+@media (min-width: 1024px) {
+
+    /* Body Padding for Sidebar */
+    body {
+        padding-left: var(--sidebar-width) !important;
+        padding-bottom: 0 !important;
+        transition: none;
+    }
+
+    .app-navbar {
+        padding: 0 2rem;
+    }
+
+    .app-navbar h3 {
+        font-size: 1.1rem;
+    }
+
+    .app-navbar h3::before {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .role-badge {
+        display: inline-block;
+        background: var(--primary-50);
+        color: var(--primary-800);
+        padding: 0.4rem 1rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 1px solid var(--primary-100);
+    }
+
+    .logout-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    /* SIDEBAR RESET (Vertical Left) */
+    .app-sidebar {
+        top: var(--navbar-height);
+        bottom: auto;
+        left: 0;
+        width: var(--sidebar-width);
+        height: calc(100vh - var(--navbar-height));
+        background: #ffffff;
+        border-right: 1px solid var(--slate-200);
+        border-top: none;
+        padding: 0 0 1.5rem 0;
+        display: flex;
+        flex-direction: column;
+        z-index: 40;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+        align-items: stretch;
+        justify-content: flex-start;
+        /* Fix vertical centering */
+    }
+
+    .app-sidebar h4 {
+        display: block;
+        margin-top: 0.5rem;
+        /* Minimal margin */
+        margin-bottom: 0.5rem;
+        padding: 0 1.5rem;
+        color: var(--slate-500);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+
+    .app-sidebar ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        height: auto;
+    }
+
+    .app-sidebar li {
+        flex: none;
+        height: auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        border-top: none;
+        border-left: 4px solid transparent;
+    }
+
+    .app-sidebar li:hover {
+        background: var(--primary-50);
+        color: var(--primary-800);
+        border-left-color: var(--primary-300);
+    }
+
+    .app-sidebar li.active {
+        background: var(--primary-50);
+        color: var(--primary-800);
+        border-left-color: var(--primary-500);
+        border-top-color: transparent;
+        font-weight: 700;
+    }
+
+    .app-sidebar li span:first-child {
+        font-size: 1.2rem;
+    }
+
+    .menu-label {
+        font-size: 1rem;
+    }
+
+    /* Compact Column Layout Override - Centered/Limited Width on Desktop */
+    .admin-dashboard,
+    .doctor-dashboard-container,
+    .mypatients-page-wrapper,
+    .patient-details-container,
+    .report-container,
+    .reports-page,
+    .reports-page-v2,
+    .prescription-container,
+    .profile-container,
+    .availability-container,
+    .add-patient-container,
+    .patient-list-container {
+        max-width: 1200px !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
+}

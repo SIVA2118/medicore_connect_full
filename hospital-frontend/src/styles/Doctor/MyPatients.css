@@ -1,0 +1,715 @@
+/* ================= MY PATIENTS PAGE ================= */
+.mypatients-page-wrapper {
+    min-height: 100vh;
+    background: var(--slate-50);
+}
+
+.my-patients-container {
+    padding: clamp(1rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem);
+    max-width: 1200px;
+    margin: 0;
+}
+
+/* ================= HEADER AREA ================= */
+.patients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    background: white;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--slate-100);
+}
+
+.patients-header h2 {
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--primary-900);
+    margin-bottom: 0.5rem;
+}
+
+.patients-header p {
+    font-size: 1.1rem;
+    color: var(--slate-500);
+}
+
+/* ================= SEARCH BOX ================= */
+.search-bar-container {
+    position: relative;
+    width: 400px;
+}
+
+.patient-search-input {
+    width: 100%;
+    padding: 1.125rem 1.5rem 1.125rem 3.5rem;
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--slate-100);
+    background: var(--slate-50);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    outline: none;
+    color: var(--slate-800);
+}
+
+.search-bar-container::before {
+    content: "🔍";
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.patient-search-input:focus {
+    background: white;
+    border-color: var(--primary-400);
+    box-shadow: 0 10px 25px -5px rgba(var(--primary-rgb), 0.1);
+    transform: translateY(-2px);
+}
+
+/* ================= GRID LAYOUT ================= */
+.patients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .patients-grid {
+        gap: 1.25rem;
+    }
+}
+
+/* ================= PATIENT CARD ================= */
+.patient-card {
+    background: white;
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--slate-100);
+    box-shadow: var(--shadow-md);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.patient-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-500), var(--secondary-500));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.patient-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-2xl);
+    border-color: var(--primary-100);
+}
+
+.patient-card:hover::after {
+    opacity: 1;
+}
+
+.card-top {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.avatar {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg);
+    border: 3px solid white;
+}
+
+.name-meta h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+}
+
+.name-meta p {
+    color: var(--slate-500);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.card-divider {
+    height: 1px;
+    background: linear-gradient(to right, var(--slate-100), transparent);
+    margin: 0 -2.5rem 2rem -2.5rem;
+}
+
+.card-body p {
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+    color: var(--slate-700);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.condition-tag {
+    background: var(--accent-50);
+    color: var(--accent-700);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--accent-100);
+}
+
+.card-actions {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.action-btn {
+    padding: 0.75rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+/* Report and Prescribe styles removed */
+
+.action-btn.reassign {
+    grid-column: 1 / -1;
+    background: white;
+    border: 1px dashed var(--slate-300);
+    color: var(--slate-500);
+    font-size: 0.85rem;
+}
+
+.action-btn.reassign:hover {
+    border-color: var(--state-error);
+    color: var(--state-error);
+    background: var(--state-error-bg, #fff5f5);
+}
+
+/* ================= STATES ================= */
+.loading-state,
+.no-patients {
+    text-align: center;
+    padding: 8rem;
+    color: var(--slate-500);
+    background: white;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-sm);
+    font-size: 1.25rem;
+    font-weight: 500;
+    border: 2px dashed var(--slate-200);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+    .patients-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
+    }
+
+    .search-bar-container {
+        width: 100%;
+    }
+}
+
+/* ================= AVATAR IMG ================= */
+.avatar-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: var(--shadow-lg);
+    border: 3px solid white;
+}
+
+/* ================= VIEW ID BUTTON ================= */
+.action-btn.view-id {
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border: 1px solid var(--primary-100);
+}
+
+.action-btn.view-id:hover {
+    background: var(--primary-100);
+}
+
+
+/* ================= ID CARD MODAL (VACCINATION STYLE - COMPACT) ================= */
+.id-card-modal.landscape {
+    background: white;
+    width: 1000px;
+    /* Fixed width for standard card feel */
+    height: auto;
+    border-radius: 20px;
+    overflow: visible;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid var(--slate-200);
+    box-sizing: border-box;
+}
+
+.modal-overlay {
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 9999;
+    /* Ensure it stays on top */
+}
+
+/* Header */
+.vax-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Center align items */
+    margin-bottom: 2rem;
+    border: none;
+    /* Removed border */
+    padding-bottom: 0;
+}
+
+.vax-title h4 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--slate-900);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+}
+
+.vax-title span {
+    font-size: 0.75rem;
+    color: var(--slate-400);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.vax-status-badge {
+    background: #eff6ff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    text-align: right;
+    min-width: 120px;
+    border: none;
+}
+
+.status-label {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    margin-bottom: 0.1rem;
+}
+
+.status-value {
+    color: var(--primary-600);
+    font-weight: 900;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    text-transform: uppercase;
+}
+
+.check-icon {
+    background: var(--primary-500);
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}
+
+/* Body Layout */
+.vax-card-body {
+    display: flex;
+    gap: 2.5rem;
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+/* Photo */
+.vax-photo-section {
+    width: 140px;
+    flex-shrink: 0;
+}
+
+.vax-photo-frame {
+    width: 140px;
+    height: 160px;
+    /* Slightly taller than wide */
+    background: var(--slate-100);
+    border-radius: 12px;
+    overflow: hidden;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.vax-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vax-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--slate-400);
+    font-weight: 700;
+}
+
+/* Fields Grid */
+.vax-info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    /* Reduced from 1.2rem */
+}
+
+.vax-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    /* Reduced from 2rem */
+    align-items: flex-start;
+}
+
+.vax-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.vax-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.vax-field label {
+    font-size: 0.65rem;
+    /* Reduced from 0.7rem */
+    font-weight: 800;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+}
+
+.vax-field p {
+    font-size: 0.95rem;
+    /* Reduced from 1.05rem */
+    font-weight: 700;
+    color: var(--slate-900);
+    border-bottom: 2px solid var(--slate-100);
+    padding-bottom: 0.2rem;
+    line-height: 1.2;
+}
+
+/* Footer layout optimized for compact look */
+.vax-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    border-top: 1px dashed var(--slate-200);
+    padding-top: 1rem;
+}
+
+.vax-qr-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.qr-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--slate-400);
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.8;
+}
+
+.qr-code-box {
+    padding: 0;
+    border: none;
+    width: 120px;
+    /* Reduced from 140px */
+    height: 120px;
+    /* Clean look */
+}
+
+.vax-signature-section {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.signature-line {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--slate-400);
+    /* More subtle signature */
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: none;
+    border-top: 2px solid var(--slate-200);
+    /* Line above text for signature area */
+    padding-top: 0.5rem;
+}
+
+.vax-field label.footer-label {
+    font-size: 0.65rem;
+    color: var(--slate-400);
+    text-align: right;
+    display: block;
+}
+
+/* ================= SPLIT LAYOUT ================= */
+.patients-split-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.split-column {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-header {
+    border-bottom: 2px solid var(--slate-200);
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.column-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--slate-700);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.column-title.opd {
+    color: var(--primary-700);
+    border-left: 5px solid var(--primary-500);
+    padding-left: 1rem;
+}
+
+.column-title.ipd {
+    color: var(--secondary-700);
+    border-left: 5px solid var(--secondary-500);
+    padding-left: 1rem;
+}
+
+.count-badge {
+    background: var(--slate-200);
+    color: var(--slate-600);
+    font-size: 0.85rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.patients-list-vertical {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.no-patients-small {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: var(--slate-400);
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px dashed var(--slate-200);
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+}
+
+/* Make grid single column on smaller screens */
+@media (max-width: 1400px) {
+    .patients-split-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .patients-list-vertical {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Action Buttons */
+.id-card-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 100;
+}
+
+.btn-print {
+    background: var(--primary-600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.2);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-print:hover {
+    background: var(--primary-700);
+    transform: translateY(-2px);
+}
+
+.btn-close-card {
+    background: white;
+    color: var(--slate-600);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid var(--slate-300);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.btn-close-card:hover {
+    background: var(--slate-50);
+    color: var(--slate-900);
+}
+
+@media print {
+    @page {
+        margin: 0;
+        size: landscape;
+    }
+
+    html,
+    body {
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background: white;
+        overflow: hidden !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .modal-overlay,
+    .modal-overlay * {
+        visibility: visible;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .id-card-modal.landscape {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        transform: scale(1) !important;
+        margin: 0;
+        padding: 0;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: scale(0.85) !important;
+        transform-origin: center center !important;
+    }
+
+    .id-card-actions {
+        display: none !important;
+    }
+}

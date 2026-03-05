@@ -1,0 +1,228 @@
+/* Base Layout */
+.lab-tests-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: #f8fafc;
+    /* Slate-50 */
+    min-height: 100vh;
+    animation: fadeInPage 0.6s ease-out;
+}
+
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header Styling */
+.page-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.page-header h2 {
+    color: #1e293b;
+    /* Slate-800 */
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-header p {
+    color: #64748b;
+    /* Slate-500 */
+    font-size: 1.1rem;
+}
+
+/* Grid Layout */
+.tests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+    padding-bottom: 3rem;
+}
+
+/* Modern Card Styling */
+.test-category-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    /* Slate-200 */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.5s ease-out backwards;
+}
+
+/* Staggered Animation Delay for Cards */
+.test-category-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.test-category-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.test-category-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.test-category-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.test-category-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.test-category-card:nth-child(n+6) {
+    animation-delay: 0.6s;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.test-category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: #cbd5e1;
+}
+
+/* Card Header */
+.category-header {
+    background: linear-gradient(to right, #f8fafc, #fff);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-header h3 {
+    margin: 0;
+    color: #334155;
+    /* Slate-700 */
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.total-badge {
+    background: #e0e7ff;
+    /* Indigo-100 */
+    color: #4338ca;
+    /* Indigo-700 */
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* List Styling */
+.test-list {
+    padding: 0.5rem 0;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 300px;
+    /* Optional constraint */
+}
+
+/* Scrollbar for test list */
+.test-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.test-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.test-list::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+}
+
+.test-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.2s ease;
+    cursor: default;
+}
+
+.test-item:last-child {
+    border-bottom: none;
+}
+
+.test-item:hover {
+    background-color: #f8fafc;
+}
+
+.test-name {
+    color: #475569;
+    /* Slate-600 */
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Animated Count Pill */
+.count-pill {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+    transition: transform 0.2s;
+}
+
+.test-item:hover .count-pill {
+    transform: scale(1.05);
+}
+
+.loading-state {
+    text-align: center;
+    padding: 4rem;
+    color: #64748b;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}

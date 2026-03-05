@@ -1,0 +1,239 @@
+.doctor-dashboard-container {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0;
+}
+
+.welcome-banner {
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-900) 100%);
+    padding: 3rem 2rem;
+    /* Reduced for smaller screens */
+    border-radius: var(--radius-2xl);
+    color: white;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-2xl);
+}
+
+@media (max-width: 640px) {
+    .welcome-banner {
+        padding: 2rem 1.5rem;
+    }
+}
+
+.welcome-banner::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.welcome-banner h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    /* Fluid typography */
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-banner p {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    opacity: 0.9;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /* Better fit */
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--slate-100);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--primary-100);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.stat-icon.patients {
+    background: var(--primary-50);
+    color: var(--primary-600);
+}
+
+.stat-icon.reports {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.stat-icon.prescriptions {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.stat-info h3 {
+    font-size: 0.9rem;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.stat-info p {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--slate-900);
+}
+
+.dashboard-sections {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.section-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--slate-100);
+    box-shadow: var(--shadow-lg);
+}
+
+.section-card h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.quick-link-btn {
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--slate-50);
+    background: var(--slate-50);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.quick-link-btn span {
+    font-size: 2rem;
+}
+
+.quick-link-btn p {
+    font-weight: 700;
+    color: var(--slate-700);
+}
+
+.quick-link-btn:hover {
+    background: white;
+    border-color: var(--primary-200);
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+
+.quick-link-btn:hover p {
+    color: var(--primary-700);
+}
+
+/* ================= RESPONSIVE ADJUSTMENTS ================= */
+@media (max-width: 1024px) {
+    .dashboard-sections {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .doctor-dashboard-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .welcome-banner {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .welcome-banner h1 {
+        font-size: 1.75rem;
+    }
+
+    .welcome-banner p {
+        font-size: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        /* Stack cards on mobile */
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+    }
+
+    .stat-info p {
+        font-size: 1.75rem;
+    }
+
+    .section-card {
+        padding: 1.5rem;
+    }
+
+    .quick-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on mobile */
+        gap: 1rem;
+    }
+
+    .quick-link-btn {
+        padding: 1rem;
+    }
+
+    .quick-link-btn span {
+        font-size: 1.75rem;
+    }
+
+    .todays-visits li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}

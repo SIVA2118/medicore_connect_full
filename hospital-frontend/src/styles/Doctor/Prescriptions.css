@@ -1,0 +1,292 @@
+.prescription-container {
+    padding: 3rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.prescription-card {
+    background: white;
+    padding: 3.5rem;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--slate-100);
+}
+
+.prescription-card h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.prescription-card h2::before {
+    content: "💊";
+    font-size: 1.8rem;
+}
+
+.form-section {
+    margin-bottom: 3.5rem;
+}
+
+.form-section h3 {
+    color: var(--primary-700);
+    margin-bottom: 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--slate-500);
+}
+
+.form-input,
+.notes-area {
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--slate-100);
+    border-radius: var(--radius-xl);
+    background: var(--slate-50);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.form-input:focus,
+.notes-area:focus {
+    border-color: var(--primary-300);
+    background: white;
+    box-shadow: 0 0 0 4px var(--primary-50);
+    outline: none;
+}
+
+.medicine-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.medicine-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background: var(--slate-50);
+    padding: 1.75rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--slate-100);
+    position: relative;
+    transition: all 0.2s;
+}
+
+.medicine-row:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-100);
+}
+
+.row-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.row-sub {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.medicine-row input,
+.medicine-row select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
+    background: white;
+}
+
+.btn-remove {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ffedef;
+    color: #ff4d4f;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #ffa39e;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background: #ff4d4f;
+    color: white;
+    transform: scale(1.1);
+}
+
+.btn-add {
+    background: var(--primary-50);
+    color: var(--primary-600);
+    padding: 1rem 2rem;
+    border-radius: var(--radius-xl);
+    border: 2px dashed var(--primary-200);
+    cursor: pointer;
+    font-weight: 700;
+    width: 100%;
+    margin-top: 1rem;
+    transition: all 0.2s;
+}
+
+.btn-add:hover {
+    background: var(--primary-100);
+    border-style: solid;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--slate-50);
+    margin-top: 2rem;
+}
+
+.btn-cancel {
+    background: var(--slate-100);
+    color: var(--slate-600);
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: var(--radius-xl);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-submit {
+    background: var(--primary-600);
+    color: white;
+    padding: 1rem 3.5rem;
+    border: none;
+    border-radius: var(--radius-xl);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+}
+
+.btn-submit:hover {
+    background: var(--primary-700);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 850px) {
+    .row-main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* TABLE STYLES FOR MEDICINES */
+.table-wrapper {
+    overflow-x: auto;
+    background: white;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--slate-200);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem;
+}
+
+.medicines-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 800px;
+    /* Ensure structure on small screens */
+}
+
+.medicines-table th {
+    background: var(--slate-50);
+    color: var(--slate-700);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    padding: 1rem;
+    border-bottom: 2px solid var(--slate-200);
+    text-align: left;
+}
+
+.medicines-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--slate-100);
+    vertical-align: top;
+}
+
+.medicines-table tr:last-child td {
+    border-bottom: none;
+}
+
+.medicines-table input,
+.medicines-table select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
+    background: white;
+    transition: all 0.2s;
+}
+
+.medicines-table input:focus,
+.medicines-table select:focus {
+    border-color: var(--primary-400);
+    box-shadow: 0 0 0 3px var(--primary-50);
+    outline: none;
+}
+
+.btn-remove-row {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #fff1f2;
+    color: #e11d48;
+    border: 1px solid #ffe4e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: all 0.2s;
+}
+
+.btn-remove-row:hover {
+    background: #e11d48;
+    color: white;
+    border-color: #e11d48;
+}

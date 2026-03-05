@@ -1,0 +1,343 @@
+/* Full Screen Overlay specific to Bill Modal */
+.bill-modal-overlay {
+    z-index: 9999 !important;
+    /* Force on top of everything including sidebar */
+    background: rgba(0, 0, 0, 0.8) !important;
+    padding: 2rem 0 !important;
+    /* Add vertical padding for scrolling */
+    display: block !important;
+    /* Changed from flex to block to allow scrolling */
+    overflow-y: auto !important;
+    /* Scroll the overlay, not the modal */
+    text-align: center;
+    /* Center the modal horizontally */
+}
+
+/* Target the combined class to override BillerDashboard.css .modal-content */
+.modal-content.bill-modal {
+    display: inline-block;
+    /* Allow text-align center to work */
+    text-align: left;
+    /* Reset text align for content */
+    width: 95%;
+    max-width: 900px;
+    height: auto;
+    min-height: 80vh;
+    /* Minimum height for short bills */
+    max-height: none;
+    /* remove max-height constraint */
+    background: white;
+    padding: 0;
+    overflow: visible;
+    /* Show all content */
+    flex-direction: column;
+    border: none;
+    font-family: 'Arial', sans-serif;
+    border-radius: 12px;
+    margin: 2rem auto;
+    /* Center horizontally with margin */
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    /* Even higher than overlay */
+}
+
+.modal-header.no-print {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ccc;
+    background: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 12px 12px 0 0;
+}
+
+.bill-print-area {
+    padding: 2rem;
+    color: #333;
+    overflow: visible;
+    /* No internal scroll */
+    flex-grow: 1;
+    height: auto;
+    max-height: none;
+    /* Let flexbox handle it */
+}
+
+/* Brand Header */
+.brand-header {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #0f766e;
+    padding-bottom: 1.5rem;
+}
+
+.hospital-title h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f766e;
+    margin: 0 0 0.5rem 0;
+}
+
+.hospital-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.invoice-title {
+    text-align: right;
+    margin-bottom: 2rem;
+}
+
+.invoice-title h2 {
+    font-size: 1.5rem;
+    color: #0f766e;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* Meta Info Grid - Split Layout */
+.meta-info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.meta-section {
+    flex: 1;
+}
+
+.meta-section h3.section-title {
+    color: #0f766e;
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+}
+
+.billed-to {
+    max-width: 45%;
+}
+
+.invoice-details {
+    max-width: 40%;
+}
+
+.meta-row {
+    display: flex;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.invoice-details .meta-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+}
+
+.meta-row .label {
+    font-weight: 700;
+    color: #000;
+}
+
+.meta-row .val {
+    color: #000;
+    font-weight: 500;
+}
+
+.meta-row .val.bold {
+    font-weight: 700;
+}
+
+.meta-row .val.uppercase {
+    text-transform: uppercase;
+}
+
+/* Table */
+.table-container {
+    margin-bottom: 1.5rem;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.receipt-table th {
+    background: #0f766e;
+    color: white;
+    padding: 0.6rem 0.5rem;
+    text-align: left;
+    font-weight: 600;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+.receipt-table td {
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #333;
+    vertical-align: top;
+}
+
+.receipt-table tr:nth-child(even) {
+    background-color: #f0fdfa;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+/* Description cell specific */
+.desc-cell {
+    font-weight: 500;
+}
+
+/* Footer Summary */
+.footer-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.total-row,
+.grand-total-row {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+}
+
+.total-row .label {
+    font-weight: 700;
+}
+
+.total-row .amount {
+    font-weight: 700;
+}
+
+.grand-total-row {
+    background: #ccfbf1;
+    padding: 0.5rem;
+    border-radius: 4px;
+    align-items: center;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+.grand-total-row .label {
+    color: #0f766e;
+    font-weight: 700;
+}
+
+.grand-total-row .amount {
+    color: #0f766e;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+/* Print Styles */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+
+    /* Reset everything */
+    html,
+    body {
+        height: auto !important;
+        overflow: visible !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+
+    /* Make print area and its children visible and layout compatible */
+    .bill-modal-overlay,
+    .modal-content.bill-modal,
+    .bill-print-area,
+    .bill-print-area * {
+        visibility: visible;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    /* Positioning resets to ensure flow */
+    .modal-overlay,
+    .bill-modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        z-index: 9999;
+    }
+
+    .modal-content.bill-modal {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        display: block !important;
+        /* Vital: Disable flexbox for print */
+    }
+
+    .bill-print-area {
+        position: relative !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        /* Vital: Disable flexbox for print */
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    /* Color adjustments */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Ensure full width for tables */
+    .receipt-table {
+        width: 100% !important;
+        table-layout: auto !important;
+    }
+
+    .receipt-table th {
+        background-color: #0f766e !important;
+        color: white !important;
+    }
+
+    .grand-total-row {
+        background-color: #ccfbf1 !important;
+    }
+
+    .receipt-table tr:nth-child(even) {
+        background-color: #f0fdfa !important;
+    }
+}

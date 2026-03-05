@@ -1,0 +1,82 @@
+.list-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    min-height: 80vh;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.list-header h2 {
+    font-size: 1.8rem;
+    color: var(--slate-800);
+}
+
+.search-bar {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--slate-300);
+    border-radius: var(--radius-md);
+    width: 300px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+/* Table styles reused/extended from Dashboard */
+.table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+}
+
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reports-table th,
+.reports-table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.reports-table th {
+    background: var(--slate-50);
+    color: var(--slate-600);
+    font-weight: 600;
+}
+
+.reports-table tr:hover {
+    background: var(--slate-50);
+}
+
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge.verified {
+    background: var(--green-100);
+    color: var(--green-700);
+}
+
+.badge.pending {
+    background: var(--orange-100);
+    color: var(--orange-700);
+}

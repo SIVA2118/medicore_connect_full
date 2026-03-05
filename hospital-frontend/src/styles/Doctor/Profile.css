@@ -1,0 +1,124 @@
+.profile-container {
+    padding: 3rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-card {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--slate-100);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--slate-50);
+}
+
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    background: var(--primary-600);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 800;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-details h2 {
+    font-size: 2rem;
+    color: var(--slate-900);
+    margin-bottom: 0.5rem;
+}
+
+.header-details p {
+    font-size: 1.1rem;
+    color: var(--primary-600);
+    font-weight: 700;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--slate-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 2rem 0 1.5rem;
+}
+
+.profile-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--slate-500);
+}
+
+.form-group input {
+    padding: 1rem 1.25rem;
+    border: 2px solid var(--slate-100);
+    border-radius: var(--radius-xl);
+    background: var(--slate-50);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--slate-800);
+    transition: all 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-300);
+    background: white;
+    box-shadow: 0 0 0 4px var(--primary-50);
+    outline: none;
+}
+
+.password-section {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px dashed var(--slate-100);
+}
+
+.btn-update {
+    background: var(--primary-600);
+    color: white;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: var(--radius-xl);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 2rem;
+}
+
+.btn-update:hover {
+    background: var(--primary-700);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 640px) {
+    .profile-form-grid {
+        grid-template-columns: 1fr;
+    }
+}

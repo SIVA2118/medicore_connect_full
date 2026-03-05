@@ -1,0 +1,441 @@
+/* ================= PROFILE CONTAINER ================= */
+.biller-profile-container {
+    padding: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    align-items: start;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ================= LEFT CARD (AVATAR & ACTIONS) ================= */
+.profile-card-left {
+    background: white;
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-bottom: 0.25rem;
+}
+
+.profile-role {
+    color: var(--slate-500);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 2rem;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--slate-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--slate-500);
+}
+
+.delete-avatar-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: white;
+    border: 1px solid var(--slate-200);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--slate-500);
+    transition: all 0.2s;
+}
+
+.delete-avatar-btn:hover {
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.upload-btn {
+    background: #10b981;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: background 0.2s;
+    margin-bottom: 1.5rem;
+}
+
+.upload-btn:hover {
+    background: #059669;
+}
+
+.member-since {
+    font-size: 0.85rem;
+    color: var(--slate-400);
+    font-weight: 600;
+}
+
+/* ================= RIGHT CARD (EDIT FORM) ================= */
+.profile-card-right {
+    background: white;
+    border-radius: 8px;
+    padding: 3rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    height: 85vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 2rem;
+}
+
+.profile-card-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+.profile-card-right::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.profile-card-right::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--slate-500);
+}
+
+.form-input {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.form-input.read-only {
+    background-color: var(--slate-100);
+    color: var(--slate-500);
+}
+
+.update-btn {
+    background: #10b981;
+    color: white;
+    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.update-btn:hover {
+    background: #059669;
+}
+
+.view-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.view-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--slate-500);
+}
+
+.view-group p {
+    font-size: 1rem;
+    color: var(--slate-900);
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--slate-100);
+}
+
+/* ================= BILLER ID CARD STYLES ================= */
+.bil-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.bil-card-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.bil-cards-container {
+    display: flex;
+    gap: 40px;
+}
+
+.bil-card-wrapper {
+    position: relative;
+    width: 350px;
+    height: 550px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .bil-card-overlay,
+    .bil-card-overlay * {
+        visibility: visible;
+    }
+
+    .bil-card-overlay {
+        background: white;
+        position: absolute;
+        left: 0;
+        top: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+.bil-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.bil-header-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    background: #1a2c4e;
+    clip-path: ellipse(130% 100% at 20% 0%);
+    z-index: 1;
+}
+
+.bil-header-shape::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #10b981;
+    opacity: 0.9;
+    clip-path: ellipse(100% 100% at 80% 100%);
+    z-index: -1;
+}
+
+.bil-card-header {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 2;
+    color: white;
+}
+
+.bil-logo-img {
+    height: 50px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.bil-logo-text h3 {
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.bil-photo-section {
+    position: relative;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+}
+
+.bil-photo-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 6px solid white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background: #ddd;
+}
+
+.bil-photo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bil-info-main {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    z-index: 10;
+}
+
+.bil-info-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a2c4e;
+    margin: 0 0 10px 0;
+}
+
+.bil-info-role {
+    display: inline-block;
+    background: #10b981;
+    color: white;
+    padding: 6px 25px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.bil-info-grid {
+    padding: 0 30px;
+}
+
+.bil-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #10b981;
+}
+
+.bil-detail-label {
+    font-weight: 800;
+    color: #1a2c4e;
+    font-size: 0.85rem;
+}
+
+.bil-detail-value {
+    font-weight: 600;
+    color: #444;
+    font-size: 0.85rem;
+}
+
+.bil-footer-shape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: #1a2c4e;
+    clip-path: ellipse(80% 100% at 50% 100%);
+}
+
+.bil-footer-shape-back {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #1a2c4e;
+    clip-path: ellipse(100% 100% at 50% 100%);
+}
+
+.bil-card-actions {
+    display: flex;
+    gap: 15px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 10001;
+}
+
+.bil-action-btn,
+.bil-close-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bil-action-btn {
+    background: white;
+    color: #1a2c4e;
+}
+
+.bil-close-btn {
+    background: #10b981;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

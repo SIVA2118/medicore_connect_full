@@ -1,0 +1,63 @@
+/* Tests.css */
+.tests-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.test-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid var(--slate-200);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.test-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.test-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.test-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--slate-800);
+}
+
+.test-info p {
+    color: var(--slate-500);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.test-action-btn {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary-500);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.test-action-btn:hover {
+    background: var(--primary-600);
+}

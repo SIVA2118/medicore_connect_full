@@ -1,0 +1,130 @@
+:root {
+  --primary: #22c55e;
+  --dark: #020617;
+  --light: #f8fafc;
+  --muted: #94a3b8;
+}
+
+/* ================= TOP NAVBAR ================= */
+.doctor-navbar {
+  height: 64px;
+  background: linear-gradient(135deg, #020617, #052e16);
+  color: var(--light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.doctor-navbar .left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.doctor-navbar h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: var(--light);
+  cursor: pointer;
+}
+
+/* ================= RIGHT ================= */
+.doctor-navbar .right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.role-badge {
+  background: var(--primary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.logout-btn {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ================= SIDEBAR ================= */
+.doctor-sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 64px);
+  background: #020617;
+  color: var(--light);
+  padding: 20px;
+  transform: translateX(-100%);
+  transition: 0.3s ease;
+  z-index: 999;
+}
+
+.doctor-sidebar.open {
+  transform: translateX(0);
+}
+
+.doctor-sidebar h4 {
+  margin-bottom: 18px;
+  color: var(--muted);
+}
+
+.doctor-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.doctor-sidebar li {
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+
+.doctor-sidebar li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ================= OVERLAY ================= */
+.overlay {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+/* ================= DESKTOP ================= */
+@media (min-width: 992px) {
+  .doctor-sidebar {
+    transform: translateX(0);
+  }
+
+  .menu-btn {
+    display: none;
+  }
+
+  .overlay {
+    display: none;
+  }
+}

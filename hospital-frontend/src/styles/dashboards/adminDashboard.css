@@ -1,0 +1,505 @@
+/* ================= ADMIN DASHBOARD V2 PREMIUM CSS ================= */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --hospital-primary: #0f172a;
+  --hospital-accent: #3b82f6;
+  --hospital-bg: #f3f4f6;
+  --hospital-card-bg: rgba(255, 255, 255, 0.95);
+  --hospital-text: #1e293b;
+  --hospital-muted: #64748b;
+  --hospital-border: rgba(226, 232, 240, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --shadow-premium: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+.admin-dashboard {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 2.5rem;
+  background-attachment: fixed;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0, transparent 50%),
+    radial-gradient(at 50% 0%, rgba(16, 185, 129, 0.05) 0, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0, transparent 50%);
+  min-height: 100vh;
+}
+
+/* --- V2 Loading --- */
+.admin-loading {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+/* --- V2 Header --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.badge-new {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--hospital-accent);
+  background: rgba(59, 130, 246, 0.1);
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.header-info h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--hospital-primary);
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+
+.header-info p {
+  color: var(--hospital-muted);
+  font-size: 1.1rem;
+}
+
+.current-date-v2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 18px;
+  box-shadow: var(--shadow-premium);
+  border: 1px solid var(--hospital-border);
+}
+
+.date-icon {
+  font-size: 1.5rem;
+}
+
+.date-text .day {
+  display: block;
+  font-weight: 700;
+  color: var(--hospital-primary);
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.date-text .full-date {
+  font-size: 0.85rem;
+  color: var(--hospital-muted);
+  font-weight: 500;
+}
+
+/* --- V2 Insights Banner --- */
+.insights-banner {
+  margin-bottom: 2rem;
+  animation: fadeIn 1s ease-out;
+}
+
+.insight-item {
+  background: var(--hospital-primary);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+}
+
+.insight-icon {
+  font-size: 1.25rem;
+}
+
+/* --- V2 Stats Grid --- */
+.stats-grid-v2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card-v2 {
+  background: var(--hospital-card-bg);
+  border-radius: 24px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hospital-border);
+  box-shadow: var(--shadow-premium);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stat-card-v2:hover {
+  transform: translateY(-8px);
+}
+
+.stat-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.stat-info h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+  color: var(--hospital-muted);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--hospital-primary);
+}
+
+.trend {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.trend.positive {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.stat-footer-v2 {
+  font-size: 0.85rem;
+  color: var(--hospital-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-glass-effect {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 75% 15%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* --- V2 Dashboard Grid Main --- */
+.dashboard-grid-main {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+}
+
+.section-card-v2 {
+  background: var(--hospital-card-bg);
+  border-radius: 28px;
+  padding: 2rem;
+  border: 1px solid var(--hospital-border);
+  box-shadow: var(--shadow-premium);
+}
+
+.card-header-v2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.card-header-v2 h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--hospital-primary);
+  margin-bottom: 4px;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: var(--hospital-muted);
+  font-weight: 500;
+}
+
+.btn-outline-v2 {
+  background: white;
+  border: 1px solid var(--hospital-border);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--hospital-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline-v2:hover {
+  background: var(--hospital-bg);
+  border-color: var(--hospital-accent);
+  color: var(--hospital-accent);
+}
+
+/* --- V2 Patient List --- */
+.patient-list-v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.patient-row-v2 {
+  display: grid;
+  grid-template-columns: 48px 1.5fr 1fr 1fr 48px;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.patient-row-v2:hover {
+  background: white;
+  border-color: var(--hospital-accent);
+  box-shadow: var(--shadow-premium);
+  transform: scale(1.01);
+}
+
+.patient-avatar-v2 {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--hospital-accent), #60a5fa);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.patient-info-v2 h4 {
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.mrn-tag {
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+  background: var(--hospital-primary);
+  padding: 2px 6px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.type-badge-v2 {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.type-badge-v2.opd {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.type-badge-v2.ipd {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.patient-date-v2 {
+  font-size: 0.85rem;
+  color: var(--hospital-muted);
+  font-weight: 600;
+}
+
+.icon-btn-v2 {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid var(--hospital-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: var(--hospital-accent);
+  cursor: pointer;
+}
+
+/* --- V2 Staff Overview --- */
+.staff-overview-card {
+  margin-bottom: 2rem;
+}
+
+.staff-metrics-v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metric-item-v2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 20px;
+}
+
+.metric-icon-v2 {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.receptionist {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.biller {
+  background: #fdf2f8;
+  color: #ec4899;
+}
+
+.admin {
+  background: #f8fafc;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+}
+
+.metric-data-v2 .label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--hospital-muted);
+  font-weight: 600;
+}
+
+.metric-data-v2 .value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--hospital-primary);
+}
+
+/* --- V2 Mini Profile --- */
+.hospital-mini-profile-v2 {
+  position: relative;
+  height: 240px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow-premium);
+}
+
+.profile-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s;
+}
+
+.hospital-mini-profile-v2:hover .profile-bg {
+  transform: scale(1.1);
+}
+
+.profile-overlay-v2 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+}
+
+.profile-overlay-v2 h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.profile-overlay-v2 p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.profile-tags-v2 {
+  display: flex;
+  gap: 8px;
+}
+
+.profile-tags-v2 span {
+  font-size: 10px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+/* --- V2 Animations --- */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid-main {
+    grid-template-columns: 1fr;
+  }
+}

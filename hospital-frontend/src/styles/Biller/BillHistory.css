@@ -1,0 +1,206 @@
+/* BillHistory.css */
+:root {
+    --invoice-red: #ef4444;
+    --text-dark: #1e293b;
+    --text-gray: #64748b;
+    --border-light: #e2e8f0;
+    --bg-hover: #f8fafc;
+}
+
+.bill-history-page {
+    padding: 2rem;
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Card Container */
+.history-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    padding: 2rem;
+}
+
+/* Header */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.history-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.5rem 0;
+}
+
+.history-subtitle {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+    width: 250px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #f8fafc;
+    transition: all 0.2s;
+}
+
+.search-box input:focus {
+    background: white;
+    border-color: #3b82f6;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.clean-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.clean-table th {
+    text-align: left;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+    border-bottom: 1px solid var(--border-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.clean-table td {
+    padding: 1.25rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.clean-table tbody tr:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Invoice Cell */
+.invoice-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.file-icon {
+    background: #fef2f2;
+    padding: 6px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invoice-id {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Patient Info */
+.patient-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-name {
+    font-weight: 600;
+}
+
+.patient-sub {
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    margin-top: 2px;
+}
+
+/* Amount */
+.amount-cell {
+    font-weight: 700;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+/* Status Pill */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-pill.paid {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-pill.pending {
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+/* Actions */
+.actions-flex {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: transform 0.2s;
+    opacity: 0.7;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    background: #f1f5f9;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-gray);
+}

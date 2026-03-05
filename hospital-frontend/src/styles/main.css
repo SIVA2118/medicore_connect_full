@@ -1,0 +1,203 @@
+/* ================= ROOT VARIABLES (Sakra Inspired) ================= */
+:root {
+  /* COLORS - Primary Brand (Teal - Healing/Calm) */
+  --primary-50: #e0f2f1;
+  --primary-100: #b2dfdb;
+  --primary-200: #80cbc4;
+  --primary-300: #4db6ac;
+  --primary-400: #26a69a;
+  --primary-500: #009688;
+  /* Main Brand Color */
+  --primary-600: #00897b;
+  --primary-700: #00796b;
+  --primary-800: #00695c;
+  --primary-900: #004d40;
+
+  /* COLORS - Secondary (Orchid/Blue - Empathy) */
+  --secondary-500: #5c6bc0;
+  --secondary-600: #3f51b5;
+
+  /* COLORS - Accents */
+  --accent-coral: #ff7043;
+  /* Happiness/Awareness */
+  --accent-mauve: #ab47bc;
+  /* Relief/Serenity */
+
+  /* COLORS - Neutrals (Light/Warm) */
+  --slate-50: #fafafa;
+  --slate-100: #f5f5f5;
+  --slate-200: #eeeeee;
+  --slate-300: #e0e0e0;
+  --slate-400: #bdbdbd;
+  --slate-500: #9e9e9e;
+  --slate-600: #757575;
+  --slate-700: #616161;
+  --slate-800: #424242;
+  --slate-900: #212121;
+
+  /* COLORS - Semantic */
+  --success: #4caf50;
+  --warning: #ff9800;
+  --danger: #f44336;
+  --info: #2196f3;
+
+  /* THEME */
+  --bg-body: #f4f7f6;
+  /* Very soft gray/teal tint */
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --text-main: var(--slate-900);
+  --text-muted: var(--slate-600);
+  --border-color: var(--slate-300);
+
+  /* TYPE */
+  --font-sans: 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* SHADOWS (Soft, Hotel-like) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 10px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.1);
+
+  /* RADIUS */
+  --radius-md: 4px;
+  /* Sharper, more professional */
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+}
+
+/* ================= RESET & BASE ================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ================= UTILITIES ================= */
+/* ================= UTILITIES ================= */
+.container {
+  width: 100%;
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+.card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  /* Subtle shadow */
+  border: 1px solid var(--slate-200);
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.25rem;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+  border: none;
+  text-transform: uppercase;
+  /* Corporate feel */
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background-color: var(--primary-500);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-600);
+  box-shadow: var(--shadow-md);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+/* ================= MOBILE TYPOGRAPHY & OVERRIDES ================= */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px; /* Slightly smaller base font for mobile */
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}

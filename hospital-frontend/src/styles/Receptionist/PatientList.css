@@ -1,0 +1,869 @@
+/* ================= PATIENT LIST CONTAINER ================= */
+.patient-list-container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.patient-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.patient-list-header h2 {
+    font-size: 1.8rem;
+    color: var(--slate-900);
+    margin: 0;
+}
+
+.date-picker {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    color: var(--slate-800);
+    background: white;
+    cursor: pointer;
+}
+
+.search-bar {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    width: 300px;
+    background: white;
+}
+
+/* ================= SPLIT LAYOUT ================= */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.column {
+    background: var(--slate-50);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.column-opd {
+    background: #eff6ff;
+    border-color: #dbeafe;
+}
+
+.column-ipd {
+    background: #fdf2f8;
+    border-color: #fce7f3;
+}
+
+.column-title {
+    font-size: 1.25rem;
+    color: var(--slate-800);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patients-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.empty-msg {
+    grid-column: span 2;
+    text-align: center;
+    color: var(--slate-500);
+    font-style: italic;
+    padding: 2rem 0;
+}
+
+/* ================= MODERN CARD DESIGN (COMPACT) ================= */
+.patient-card-modern {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--slate-100);
+    transition: all 0.2s;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-card-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-200);
+}
+
+.modern-card-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.modern-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.patient-id-tag {
+    font-size: 0.7rem;
+    color: var(--slate-400);
+    font-weight: 700;
+    background: var(--slate-50);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.modern-avatar-section {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 0.75rem;
+}
+
+.modern-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modern-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+    color: var(--primary-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modern-patient-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin: 0 0 0.15rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modern-patient-sub {
+    font-size: 0.8rem;
+    color: var(--slate-500);
+    font-weight: 500;
+}
+
+.modern-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.modern-badge.OPD {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.modern-badge.IPD {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.modern-card-body {
+    flex: 1;
+    margin-bottom: 1rem;
+    background: var(--slate-50);
+    border-radius: 10px;
+    padding: 0.75rem;
+}
+
+.modern-info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.modern-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--slate-700);
+}
+
+.info-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 5px;
+    color: var(--slate-400);
+    font-size: 0.8rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.info-value {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.info-value.doc-name {
+    color: var(--primary-700);
+    font-weight: 600;
+}
+
+.modern-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--slate-50);
+}
+
+.modern-btn-primary {
+    flex: 1;
+    background: var(--slate-900);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+}
+
+.modern-btn-primary:hover {
+    background: var(--primary-600);
+}
+
+.modern-actions-group {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.modern-icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--slate-200);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.modern-icon-btn:hover {
+    border-color: var(--slate-300);
+}
+
+.modern-icon-btn.edit:hover {
+    background: #f0f9ff;
+    color: #0284c7;
+    border-color: #bae6fd;
+}
+
+.modern-icon-btn.delete:hover {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+/* ================= PATIENT DETAIL POPUP ================= */
+.patient-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.patient-modal-content {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--radius-xl);
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: var(--shadow-xl);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--slate-400);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 2rem;
+    color: var(--slate-900);
+    margin: 0;
+}
+
+.modal-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: var(--shadow-md);
+}
+
+.modal-avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    color: var(--primary-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 2.5rem;
+    border: 4px solid white;
+    box-shadow: var(--shadow-md);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.detail-section h3 {
+    font-size: 1.1rem;
+    color: var(--primary-700);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem 2rem;
+}
+
+.detail-grid p {
+    font-size: 1rem;
+    color: var(--slate-700);
+    line-height: 1.5;
+}
+
+.detail-grid strong {
+    color: var(--slate-900);
+    font-weight: 600;
+}
+
+/* ================= ID CARD MODAL (FIXED SCALABLE DESIGN) ================= */
+
+/* Modal Content Overlay */
+.modal-overlay {
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Correct alignment for scaling */
+    padding: 2rem;
+    z-index: 9999;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Wrapper handles positioning and scaled height */
+.id-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+    /* Add spacing from top */
+    padding-bottom: 2rem;
+}
+
+/* The Card itself - FIXED DIMENSIONS for pixel perfect design */
+.id-card-modal.landscape {
+    background: white;
+    width: 1000px;
+    /* FIXED WIDTH - Optimised for reference design */
+    min-width: 1000px;
+    height: auto;
+    min-height: 550px;
+    border-radius: 28px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
+    transform-origin: top center;
+    /* Scale from top center */
+    margin-bottom: 0;
+    animation: slideUp 0.3s ease-out;
+}
+
+/* SCALING LOGIC FOR RESPONSIVENESS */
+@media (max-width: 1024px) {
+    .id-card-modal.landscape {
+        transform: scale(0.7);
+        /* Scale for tablets/laptops */
+        margin-bottom: -160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .id-card-modal.landscape {
+        transform: scale(0.5);
+        /* Scale for mobile */
+        margin-bottom: -280px;
+    }
+
+    .id-card-wrapper {
+        padding: 0;
+        margin-top: 1rem;
+        overflow-x: hidden;
+    }
+
+    .modal-overlay {
+        padding: 0.5rem;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .id-card-modal.landscape {
+        transform: scale(0.38);
+        /* Tiny scale for small phones */
+        margin-bottom: -350px;
+    }
+}
+
+/* Header */
+.vax-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+}
+
+.vax-title h4 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #111827;
+    /* Near black */
+    letter-spacing: -0.01em;
+    line-height: 1;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+}
+
+.vax-title span {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    /* Light grey */
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: block;
+}
+
+.vax-status-badge {
+    background: #f0fdf4;
+    /* Light green bg */
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    text-align: right;
+}
+
+.status-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #9ca3af;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+}
+
+.status-value {
+    color: #059669;
+    /* Green text */
+    font-weight: 900;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    text-transform: uppercase;
+}
+
+.check-icon {
+    background: #059669;
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* Body Layout */
+.vax-card-body {
+    display: flex;
+    gap: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+/* Photo - Rounded Rectangle per Sakra reference */
+.vax-photo-section {
+    flex-shrink: 0;
+}
+
+.vax-photo-frame {
+    width: 160px;
+    height: 190px;
+    background: #f3f4f6;
+    border-radius: 16px;
+    /* Rounded corners */
+    overflow: hidden;
+    object-fit: cover;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.vax-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vax-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #d1d5db;
+    font-weight: 700;
+}
+
+/* Fields Grid */
+.vax-info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 0.5rem;
+}
+
+.vax-row {
+    display: flex;
+    gap: 1.5rem;
+    /* Reduced from 2.5rem */
+}
+
+.vax-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.vax-field.full-width {
+    width: 100%;
+}
+
+.vax-field label {
+    font-size: 0.65rem;
+    /* Reduced from 0.75rem */
+    font-weight: 900;
+    color: #d1d5db;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+}
+
+.vax-field p {
+    font-size: 1rem;
+    /* Reduced from 1.25rem */
+    font-weight: 800;
+    color: #111827;
+    padding-bottom: 0.2rem;
+    line-height: 1.2;
+    border-bottom: 2px solid #f3f4f6;
+    min-width: 120px;
+}
+
+/* Footer layout */
+.vax-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px dashed #f3f4f6;
+}
+
+/* QR Code */
+.vax-qr-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.qr-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.55rem;
+    /* Reduced from 0.65rem */
+    letter-spacing: 0.25em;
+    color: #d1d5db;
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.qr-code-box {
+    width: 120px;
+    /* Reduced from 140px */
+    height: 120px;
+}
+
+/* Signature Section */
+.vax-signature-section {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-end;
+}
+
+.vax-field label.footer-label {
+    text-align: left;
+    color: #d1d5db;
+    font-weight: 900;
+    font-size: 0.6rem;
+    /* Reduced from 0.7rem */
+}
+
+.vax-field .footer-value {
+    font-size: 0.9rem;
+    /* Reduced from 1.1rem */
+    font-weight: 800;
+    border-bottom: 2px solid #f3f4f6;
+}
+
+.signature-line {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.2rem;
+    /* Reduced from 1.5rem */
+    color: #9ca3af;
+    font-weight: 500;
+    border-bottom: none;
+    /* No underline for signature in Sakra ref */
+    padding-bottom: 0.2rem;
+    min-width: 150px;
+    text-align: left;
+    /* Sakra signature aligns with label */
+    font-style: italic;
+}
+
+/* Action Buttons - Keep unrelated to scaling */
+.id-card-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 100;
+    /* Ensure buttons are clickable above scaled element */
+}
+
+.btn-print {
+    background: var(--primary-600);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.2);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-print:hover {
+    background: var(--primary-700);
+    transform: translateY(-2px);
+}
+
+.btn-close-card {
+    background: white;
+    color: var(--slate-600);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid var(--slate-300);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.btn-close-card:hover {
+    background: var(--slate-50);
+    color: var(--slate-900);
+}
+
+@media print {
+    @page {
+        margin: 0;
+        size: landscape;
+    }
+
+    html,
+    body {
+        height: 100vh;
+        /* Force viewport height */
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background: white;
+        overflow: hidden !important;
+        /* Strictly prevent scroll/extra pages */
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .modal-overlay,
+    .modal-overlay * {
+        visibility: visible;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        /* Fixed is key for single page overlay printing */
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .id-card-modal.landscape {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        transform: scale(1) !important;
+        margin: 0;
+        padding: 0;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: scale(0.85) !important;
+        transform-origin: center center !important;
+    }
+
+    /* Force hide extra elements */
+    .id-card-actions,
+    .patients-header,
+    .patients-split-container {
+        display: none !important;
+    }
+}
