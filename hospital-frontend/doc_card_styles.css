@@ -1,0 +1,456 @@
+/* ==========================================================================
+   RECEPTIONIST ID CARD (CITYCARE STYLE - PORTRAIT)
+   ========================================================================== */
+
+/* Overlay */
+.doc-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.doc-card-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.doc-cards-container {
+    display: flex;
+    gap: 40px;
+    /* Show both sides side-by-side */
+}
+
+.doc-card-wrapper {
+    position: relative;
+    width: 350px;
+    height: 550px;
+    /* Portrait Aspect Ratio */
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    transform: scale(1);
+}
+
+/* Print Handling */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .doc-card-overlay,
+    .doc-card-overlay * {
+        visibility: visible;
+    }
+
+    .doc-card-overlay {
+        background: white;
+        position: absolute;
+        left: 0;
+        top: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .doc-card-modal {
+        flex-direction: row;
+        gap: 0;
+    }
+
+    .doc-cards-container {
+        gap: 20px;
+    }
+
+    .doc-card-wrapper {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .doc-card-actions {
+        display: none;
+    }
+}
+
+/* Common Card Styles */
+.doc-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Shapes & Backgrounds --- */
+.doc-header-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    background: #1a2c4e;
+    /* Navy Blue */
+    clip-path: ellipse(130% 100% at 20% 0%);
+    z-index: 1;
+}
+
+.doc-header-shape::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #bf2a2f;
+    /* Red */
+    opacity: 0.9;
+    clip-path: ellipse(100% 100% at 80% 100%);
+    z-index: -1;
+}
+
+/* --- Header Content --- */
+.doc-card-header {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 2;
+    color: white;
+}
+
+.doc-logo-stack {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.doc-logo-img {
+    height: 50px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.doc-logo-text h3 {
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+/* --- Photo Section --- */
+.doc-photo-section {
+    position: relative;
+    margin-top: 100px;
+    /* Push down */
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+}
+
+.doc-photo-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 6px solid white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background: #ddd;
+    position: relative;
+}
+
+.doc-photo-circle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 4px solid #bf2a2f;
+    /* Inner Red Border */
+}
+
+.doc-photo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.doc-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    color: #1a2c4e;
+    background: #f0f2f5;
+}
+
+/* --- Main Info (Name & Role) --- */
+.doc-info-main {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    z-index: 10;
+}
+
+.doc-info-name {
+    font-family: 'Playfair Display', serif;
+    /* Serif font for name */
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a2c4e;
+    margin: 0 0 10px 0;
+}
+
+.doc-info-role {
+    display: inline-block;
+    background: #bf2a2f;
+    color: white;
+    padding: 6px 25px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(191, 42, 47, 0.3);
+}
+
+/* --- Details Grid --- */
+.doc-info-grid {
+    padding: 0 30px;
+}
+
+.doc-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #bf2a2f;
+    /* Red borders */
+}
+
+.doc-detail-row:last-child {
+    border-bottom: 2px solid #1a2c4e;
+    /* Final bold border */
+}
+
+.doc-detail-label {
+    font-weight: 800;
+    color: #1a2c4e;
+    font-size: 0.85rem;
+}
+
+.doc-detail-value {
+    font-weight: 600;
+    color: #444;
+    font-size: 0.85rem;
+}
+
+/* --- Footer Shape --- */
+.doc-footer-shape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: #1a2c4e;
+    clip-path: ellipse(80% 100% at 50% 100%);
+}
+
+.doc-footer-shape::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #bf2a2f;
+    clip-path: ellipse(60% 80% at 20% 100%);
+    opacity: 0.8;
+}
+
+/* ================== BACK SIDE ================== */
+.doc-back-header {
+    background: #1a2c4e;
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip-path: ellipse(150% 100% at 50% 0%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.doc-logo-icon-small {
+    font-size: 3rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.doc-back-content {
+    margin-top: 140px;
+    padding: 0 30px;
+    text-align: center;
+}
+
+.doc-emergency-bar {
+    font-weight: 900;
+    color: #bf2a2f;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.doc-emergency-info p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.doc-hospital-grid {
+    margin-top: 20px;
+    text-align: left;
+    /* Removed border and background as requested */
+    padding: 10px 0;
+}
+
+.doc-h-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+}
+
+.doc-h-label {
+    font-weight: 800;
+    color: #1a2c4e;
+}
+
+.doc-h-value {
+    color: #555;
+    text-align: right;
+    max-width: 65%;
+    word-break: break-word;
+    /* Fix email/website overflow */
+}
+
+.doc-note-bar {
+    background: #bf2a2f;
+    color: white;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 5px;
+    border-radius: 20px;
+    margin: 20px 0 10px 0;
+    font-size: 0.8rem;
+}
+
+.doc-policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.75rem;
+    color: #555;
+    text-align: center;
+}
+
+.doc-policy-list li {
+    margin-bottom: 4px;
+}
+
+.doc-footer-qr {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.doc-qr-placeholder {
+    width: 60px;
+    height: 60px;
+    background: repeating-conic-gradient(#1a2c4e 0% 25%, white 0% 50%) 50% / 10px 10px;
+    border: 2px solid #1a2c4e;
+}
+
+.doc-footer-shape-back {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #1a2c4e;
+    clip-path: ellipse(100% 100% at 50% 100%);
+}
+
+.doc-footer-shape-back::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    background: #bf2a2f;
+    clip-path: ellipse(80% 100% at 80% 100%);
+}
+
+/* ID Card Actions (Buttons) */
+.doc-card-actions {
+    display: flex;
+    gap: 15px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 10001;
+}
+
+.doc-action-btn,
+.doc-close-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.doc-action-btn {
+    background: white;
+    color: #1a2c4e;
+}
+
+.doc-action-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.doc-close-btn {
+    background: #bf2a2f;
+    color: white;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.doc-close-btn:hover {
+    background: #a01f24;
+    transform: rotate(90deg);
+}
