@@ -1,0 +1,23 @@
+.biller-layout {
+    display: flex;
+    min-height: 0;
+    height: calc(100vh - var(--navbar-height));
+    overflow: hidden;
+}
+
+.biller-main-content {
+    flex: 1;
+    height: calc(100vh - var(--navbar-height));
+    overflow: hidden;
+    background-color: var(--slate-50);
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .biller-main-content {
+        margin-left: 0;
+        padding-bottom: 60px;
+        /* Bottom nav spacing if mobile */
+    }
+}
