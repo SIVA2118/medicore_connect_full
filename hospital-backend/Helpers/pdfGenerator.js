@@ -1,0 +1,645 @@
+import PDFDocument from "pdfkit";
+import fs from "fs";
+import path from "path";
+
+export const generatePDF = (dataInput, fileName) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const pdfDir = path.join(process.cwd(), "pdfs");
+      if (!fs.existsSync(pdfDir)) fs.mkdirSync(pdfDir, { recursive: true });
+
+      const pdfPath = path.join(pdfDir, fileName);
+      const stream = fs.createWriteStream(pdfPath);
+
+      // autoFirstPage: false so we can manually add pages in the loop
+      const doc = new PDFDocument({ size: "A4", margin: 50, bufferPages: true, autoFirstPage: false });
+      doc.pipe(stream);
+
+      // ---------------------------------------------------------
+      // 🎨 DESIGN CONSTANTS
+      // ---------------------------------------------------------
+      const COLORS = {
+        primary: "#008080", // Teal
+        secondary: "#2c3e50", // Dark Blue-Grey
+        accent: "#e74c3c", // Red
+        text: "#333333",
+        lightBg: "#f4f6f7",
+        border: "#bdc3c7",
+      };
+
+      // ---------------------------------------------------------
+      // 🧩 REUSABLE COMPONENTS
+      // ---------------------------------------------------------
+
+      const drawHeader = () => {
+        // Hospital Branding
+        doc.font("Helvetica-Bold").fontSize(22).fillColor(COLORS.primary)
+          .text("NS multispeciality hospital", 50, 40, { align: "center" });
+
+        doc.font("Helvetica").fontSize(10).fillColor(COLORS.secondary)
+          .text("123, Main Road, Coimbatore - 641001", 50, 65, { align: "center" })
+          .text("Phone: +91 99421 29724 | Email: help@nshospital.com", 50, 80, { align: "center" });
+
+        doc.moveTo(50, 100).lineTo(545, 100).strokeColor(COLORS.primary).lineWidth(2).stroke();
+      };
+
+      const drawFooter = (pageNo) => {
+        const bottomY = 750;
+        doc.moveTo(50, bottomY).lineTo(545, bottomY).strokeColor(COLORS.border).lineWidth(1).stroke();
+
+        doc.fontSize(9).fillColor("#777")
+          .text(`Page ${pageNo} | NS Multispeciality System`, 50, bottomY + 10, { align: "center" });
+      };
+
+      const drawSectionTitle = (title, y) => {
+        doc.rect(50, y, 495, 25).fill(COLORS.lightBg);
+        doc.font("Helvetica-Bold").fontSize(12).fillColor(COLORS.primary)
+          .text(title, 60, y + 7);
+        return y + 35; // Return next Y position
+      };
+
+      // Normalize input to array
+      const dataList = Array.isArray(dataInput) ? dataInput : [dataInput];
+      let pageCounter = 0;
+
+      dataList.forEach((data, index) => {
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 1: INVOICE (Conditional)
+        // ---------------------------------------------------------
+        if (data.billId || (data.billItems && data.billItems.length > 0)) {
+          doc.addPage();
+          pageCounter++;
+          drawHeader();
+
+          // -- Patient & Bill Info Grid --
+          let y = 120;
+          doc.font("Helvetica-Bold").fontSize(16).fillColor(COLORS.secondary).text("Medical Invoice", 50, y, { align: "right" });
+          y += 30;
+
+          const leftX = 50, rightX = 350;
+
+          // Patient Box
+          doc.font("Helvetica-Bold").fontSize(11).fillColor(COLORS.primary).text("Billed To:", leftX, y);
+          y += 20;
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#000").text(data.patient?.name || data.patientName || "Walk-in Patient", leftX, y);
+          doc.font("Helvetica").text(data.patient?.phone || "-", leftX, y + 15);
+          const patientAddr = data.patient?.address || {};
+          const fullAddress = [
+            patientAddr.line1,
+            patientAddr.line2,
+            patientAddr.city,
+            patientAddr.state,
+            patientAddr.pincode
+          ].filter(Boolean).join(", ");
+
+          doc.text(fullAddress || "Address not available", leftX, y + 30, { width: 250 });
+
+          // Invoice Box
+          y = 150; // Align Top
+          doc.font("Helvetica-Bold").fontSize(11).fillColor(COLORS.primary).text("Invoice Details:", rightX, y);
+          y += 20;
+
+          const detailsRow = (label, val) => {
+            doc.font("Helvetica-Bold").fillColor("#000").text(label, rightX, y);
+            doc.font("Helvetica").text(val, rightX + 80, y);
+            y += 15;
+          };
+
+          detailsRow("Bill No:", data.billId ? `#${data.billId.toString().slice(-6).toUpperCase()}` : "-");
+          detailsRow("Date:", data.date || new Date().toLocaleDateString());
+          detailsRow("Doctor:", data.doctor?.name || (data.isWod ? "WOD (Walk-in)" : "-"));
+          detailsRow("Type:", data.patient?.patientType || "OPD");
+
+          // -- Bill Items Table --
+          y = 250;
+
+          // Header
+          doc.rect(50, y, 495, 25).fill(COLORS.primary);
+          doc.font("Helvetica-Bold").fontSize(10).fillColor("#fff");
+          doc.text("#", 60, y + 7);
+          doc.text("Description", 100, y + 7);
+          doc.text("Rate", 350, y + 7, { align: "right", width: 50 });
+          doc.text("Qty", 410, y + 7, { align: "center", width: 30 });
+          doc.text("Amount", 460, y + 7, { align: "right", width: 70 });
+
+          y += 35;
+
+          // Items
+          let items = data.billItems || [];
+          if (typeof items === "string") { try { items = JSON.parse(items); } catch { items = []; } }
+          if (!Array.isArray(items)) items = [];
+
+          let total = 0;
+          doc.font("Helvetica").fontSize(10).fillColor(COLORS.text);
+
+          items.forEach((item, i) => {
+            const amt = (item.charge || 0) * (item.qty || 0);
+            total += amt;
+
+            if (i % 2 !== 0) doc.rect(50, y - 5, 495, 20).fill("#f9f9f9"); // Zebra striping
+            doc.fillColor(COLORS.text);
+
+            doc.text(i + 1, 60, y);
+            doc.text(item.name || "-", 100, y, { width: 240 });
+            doc.text(Number(item.charge).toFixed(2), 350, y, { align: "right", width: 50 });
+            doc.text(item.qty, 410, y, { align: "center", width: 30 });
+            doc.text(amt.toFixed(2), 460, y, { align: "right", width: 70 });
+            y += 20;
+          });
+
+          doc.moveTo(50, y).lineTo(545, y).strokeColor(COLORS.border).stroke();
+          y += 10;
+
+          // Totals
+          doc.font("Helvetica-Bold").fontSize(12).fillColor("#000");
+          doc.text("Total:", 350, y, { align: "right", width: 100 });
+          doc.text(`Rs. ${total.toFixed(2)}`, 460, y, { align: "right", width: 70 });
+          y += 25;
+
+          doc.rect(350, y - 5, 195, 30).fill(COLORS.lightBg);
+          doc.fillColor(COLORS.primary).text("Grand Total:", 360, y + 5);
+          doc.text(`Rs. ${total.toFixed(2)}`, 460, y + 5, { align: "right", width: 70 });
+
+          // Footer Signatures
+          y = 650;
+          doc.font("Helvetica").fontSize(10).fillColor("#000");
+          doc.text("Payment Mode: " + (data.paymentMode || "Cash"), 50, y);
+
+          doc.moveTo(400, y).lineTo(545, y).strokeColor("#000").dash(1, 0).stroke();
+          doc.text("Authorized Signatory", 400, y + 10, { align: "center", width: 145 });
+
+          drawFooter(pageCounter);
+        }
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 1-B: MEDICAL REPORTS HISTORY
+        // ---------------------------------------------------------
+        if (data.report) {
+          doc.addPage();
+          pageCounter++;
+          let currentPage = pageCounter;
+
+          drawHeader();
+          let y = 130;
+          doc.font("Helvetica-Bold").fontSize(18).fillColor(COLORS.secondary).text("Medical Reports History", 50, y, { align: "center" });
+          y += 40;
+
+          const checkY = (currY) => {
+            if (currY > 700) {
+              drawFooter(currentPage);
+              doc.addPage();
+              pageCounter++;
+              currentPage = pageCounter;
+              drawHeader();
+              return 130;
+            }
+            return currY;
+          };
+
+          const rep = data.report || {};
+
+          if (rep.vitals) {
+            y = checkY(y);
+            y = drawSectionTitle("Vitals & Measurements", y);
+            const v = rep.vitals;
+            doc.font("Helvetica").fontSize(10).fillColor("#000");
+            const drawVital = (lbl, val, x, ly) => {
+              doc.font("Helvetica-Bold").text(lbl, x, ly);
+              doc.font("Helvetica").text(val, x, ly + 15);
+            };
+            drawVital("BP", v.bloodPressure, 60, y);
+            drawVital("Pulse", v.pulseRate, 160, y);
+            drawVital("Temp", v.temperature, 260, y);
+            drawVital("O2 Level", v.oxygenLevel, 360, y);
+            drawVital("Weight", v.weight, 460, y);
+            y += 40;
+          }
+
+          if (rep.symptoms?.length || rep.physicalExamination || rep.clinicalFindings) {
+            y = checkY(y);
+            y = drawSectionTitle("Clinical Observations", y);
+            if (rep.symptoms?.length) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Symptoms:", 60, y);
+              doc.font("Helvetica").text(rep.symptoms.join(", "), 60, y + 15, { width: 480 });
+              y += doc.heightOfString(rep.symptoms.join(", "), { width: 480 }) + 25;
+            }
+            if (rep.physicalExamination) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Physical Examination:", 60, y);
+              doc.font("Helvetica").text(rep.physicalExamination, 60, y + 15, { width: 480 });
+              y += doc.heightOfString(rep.physicalExamination, { width: 480 }) + 25;
+            }
+            if (rep.clinicalFindings) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Clinical Findings:", 60, y);
+              doc.font("Helvetica").text(rep.clinicalFindings, 60, y + 15, { width: 480 });
+              y += doc.heightOfString(rep.clinicalFindings, { width: 480 }) + 25;
+            }
+          }
+
+          if (rep.diagnosis || rep.reportDetails) {
+            y = checkY(y);
+            y = drawSectionTitle("Diagnosis & Details", y);
+            if (rep.diagnosis) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Final Diagnosis:", 60, y);
+              doc.font("Helvetica").text(rep.diagnosis, 160, y, { width: 380 });
+              y += 20;
+            }
+            if (rep.reportDetails) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Report Details:", 60, y);
+              doc.font("Helvetica").text(rep.reportDetails, 60, y + 15, { width: 480 });
+              y += doc.heightOfString(rep.reportDetails, { width: 480 }) + 25;
+            }
+          }
+
+          if (rep.treatmentAdvice || rep.lifestyleAdvice || rep.advisedInvestigations?.length > 0) {
+            y = checkY(y);
+            y = drawSectionTitle("Plan & Advice", y);
+            if (rep.treatmentAdvice) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Treatment Advice:", 60, y);
+              doc.font("Helvetica").text(rep.treatmentAdvice, 60, y + 15, { width: 480 });
+              y += doc.heightOfString(rep.treatmentAdvice, { width: 480 }) + 25;
+            }
+            if (rep.lifestyleAdvice) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Lifestyle Advice:", 60, y);
+              doc.font("Helvetica").text(rep.lifestyleAdvice, 60, y + 15, { width: 480 });
+              y += doc.heightOfString(rep.lifestyleAdvice, { width: 480 }) + 25;
+            }
+          }
+
+          if (rep.followUpDate || rep.additionalNotes) {
+            y = checkY(y);
+            y = drawSectionTitle("Follow-up & Notes", y);
+            if (rep.followUpDate) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Follow-up Date:", 60, y);
+              doc.font("Helvetica").text(new Date(rep.followUpDate).toLocaleDateString(), 160, y);
+              y += 20;
+            }
+            if (rep.additionalNotes) {
+              y = checkY(y);
+              doc.font("Helvetica-Bold").text("Additional Notes:", 60, y);
+              doc.font("Helvetica").text(rep.additionalNotes, 160, y, { width: 380 });
+              y += 20;
+            }
+          }
+
+          y += 40;
+          y = checkY(y);
+          doc.font("Helvetica-Bold").text("Doctor's Signature:", 400, y);
+          y += 30;
+          doc.font("Helvetica").text(`Dr. ${data.doctor?.name || "-"}`, 400, y);
+          doc.text(new Date().toLocaleDateString(), 400, y + 15);
+
+          drawFooter(currentPage);
+        }
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 2: FULL PATIENT PROFILE (Only for Medical Reports)
+        // ---------------------------------------------------------
+        if (data.report && data.patient && !data.skipProfile) {
+          doc.addPage();
+          pageCounter++;
+          drawHeader();
+          let y = 130;
+          doc.font("Helvetica-Bold").fontSize(16).fillColor(COLORS.secondary).text("Patient Information Form", 50, y);
+          y += 30;
+
+          const drawFieldBlock = (title, fields) => {
+            doc.rect(50, y, 495, 25).fill(COLORS.lightBg);
+            doc.font("Helvetica-Bold").fontSize(12).fillColor(COLORS.primary).text(title, 60, y + 7);
+            y += 35;
+
+            fields.forEach(row => {
+              let startX = 60;
+              row.forEach(field => {
+                if (!field) return;
+                doc.font("Helvetica-Bold").fontSize(10).fillColor("#000").text(field.label + ":", startX, y);
+                doc.font("Helvetica").text(field.value || "-", startX + (field.label.length * 6) + 10, y);
+                startX += 250;
+              });
+              y += 20;
+            });
+            y += 10;
+          };
+
+          drawFieldBlock("Personal Details", [
+            [
+              { label: "Patient Name", value: data.patient?.name },
+              { label: "Patient ID", value: data.patient?.id || data.patient?._id }
+            ],
+            [
+              { label: "Age", value: String(data.patient?.age) },
+              { label: "Gender", value: data.patient?.gender }
+            ],
+            [
+              { label: "Phone", value: data.patient?.phone },
+              { label: "Email", value: data.patient?.email }
+            ],
+            [
+              { label: "Blood Group", value: data.patient?.bloodGroup },
+              { label: "Patient Type", value: data.patient?.patientType }
+            ]
+          ]);
+
+          const addr = data.patient?.address || {};
+          drawFieldBlock("Address Details", [
+            [{ label: "Line 1", value: addr.line1 }],
+            [{ label: "Line 2", value: addr.line2 }],
+            [
+              { label: "City", value: addr.city },
+              { label: "State", value: addr.state }
+            ],
+            [{ label: "Pincode", value: addr.pincode }]
+          ]);
+
+          const em = data.patient?.emergencyContact || {};
+          drawFieldBlock("Emergency Contact", [
+            [
+              { label: "Name", value: em.name },
+              { label: "Relation", value: em.relation }
+            ],
+            [{ label: "Phone", value: em.phone }]
+          ]);
+
+          drawFieldBlock("Medical Details", [
+            [{ label: "Allergies", value: Array.isArray(data.patient?.allergies) ? data.patient.allergies.join(", ") : "-" }],
+            [{ label: "Existing Conditions", value: Array.isArray(data.patient?.existingConditions) ? data.patient.existingConditions.join(", ") : "-" }],
+            [{ label: "Current Medications", value: Array.isArray(data.patient?.currentMedications) ? data.patient.currentMedications.join(", ") : "-" }]
+          ]);
+
+          if (data.patient?.patientType === "OPD") {
+            const opd = data.patient?.opdDetails || {};
+            drawFieldBlock("OPD Visit Details", [
+              [
+                { label: "Visit Count", value: String(opd.visitCount || 1) },
+                { label: "Last Visit", value: opd.lastVisitDate ? new Date(opd.lastVisitDate).toLocaleDateString() : "-" }
+              ]
+            ]);
+          } else if (data.patient?.patientType === "IPD") {
+            const ipd = data.patient?.ipdDetails || {};
+            drawFieldBlock("Inpatient (IPD) Details", [
+              [
+                { label: "Ward", value: ipd.ward },
+                { label: "Room No", value: ipd.roomNo }
+              ],
+              [
+                { label: "Bed No", value: ipd.bedNo },
+                { label: "Admission Date", value: ipd.admissionDate ? new Date(ipd.admissionDate).toLocaleDateString() : "-" }
+              ]
+            ]);
+          }
+
+          drawFooter(pageCounter);
+        }
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 3: DOCTOR DETAILS (Only for Medical Reports)
+        // ---------------------------------------------------------
+        if (data.report && data.doctor && !data.skipDoctor) {
+          doc.addPage();
+          pageCounter++;
+          drawHeader();
+          let y = 130;
+          doc.font("Helvetica-Bold").fontSize(16).fillColor(COLORS.secondary).text("Doctor Information Form", 50, y);
+          y += 30;
+
+          const docObj = data.doctor || {};
+          const drawFieldBlock = (title, fields) => {
+            doc.rect(50, y, 495, 25).fill(COLORS.lightBg);
+            doc.font("Helvetica-Bold").fontSize(12).fillColor(COLORS.primary).text(title, 60, y + 7);
+            y += 35;
+
+            fields.forEach(row => {
+              let startX = 60;
+              row.forEach(field => {
+                if (!field) return;
+                doc.font("Helvetica-Bold").fontSize(10).fillColor("#000").text(field.label + ":", startX, y);
+                doc.font("Helvetica").text(field.value || "-", startX + (field.label.length * 6) + 10, y);
+                startX += 250;
+              });
+              y += 20;
+            });
+            y += 10;
+          };
+
+          drawFieldBlock("Professional Details", [
+            [
+              { label: "Doctor Name", value: docObj.name },
+              { label: "Specialization", value: docObj.specialization }
+            ],
+            [
+              { label: "Experience", value: docObj.experience ? docObj.experience + " years" : "-" },
+              { label: "Qualification", value: docObj.qualification }
+            ],
+            [
+              { label: "Registration No", value: docObj.registrationNumber },
+              { label: "Consultation Fee", value: docObj.consultationFee ? "Rs " + docObj.consultationFee : "-" }
+            ]
+          ]);
+
+          drawFieldBlock("Contact Information", [
+            [
+              { label: "Phone", value: docObj.phone },
+              { label: "Email", value: docObj.email }
+            ]
+          ]);
+
+          drawFieldBlock("Availability", [
+            [{ label: "Days", value: Array.isArray(docObj.availability?.days) ? docObj.availability.days.join(", ") : "-" }],
+            [{ label: "Time", value: (docObj.availability?.from || "-") + " to " + (docObj.availability?.to || "-") }]
+          ]);
+
+          y = drawSectionTitle("Doctor Bio", y);
+          doc.font("Helvetica").fontSize(10).fillColor("#000").text(docObj.bio || "No bio available.", 60, y, { width: 480 });
+          y += doc.heightOfString(docObj.bio || "", { width: 480 }) + 20;
+
+          drawFieldBlock("Rating & Reviews", [
+            [
+              { label: "Average Rating", value: docObj.rating?.average ? docObj.rating.average + " / 5" : "-" },
+              { label: "Total Reviews", value: String(docObj.rating?.count || 0) }
+            ]
+          ]);
+
+          drawFooter(pageCounter);
+        }
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 4: PRESCRIPTION SUMMARY REPORT
+        // ---------------------------------------------------------
+        if (data.prescription?.medicines?.length > 0) {
+          doc.addPage();
+          pageCounter++;
+          drawHeader();
+          let y = 130;
+          doc.font("Helvetica-Bold").fontSize(16).fillColor(COLORS.secondary).text("Prescription Summary Report", 50, y);
+          y += 30;
+
+          y = drawSectionTitle("Prescription / Rx", y);
+
+          doc.fontSize(9).font("Helvetica-Bold").fillColor(COLORS.secondary);
+          doc.text("Medicine Name", 60, y);
+          doc.text("Dosage", 200, y);
+          doc.text("Freq", 280, y);
+          doc.text("Duration", 340, y);
+          doc.text("Instruction", 400, y);
+
+          doc.moveTo(50, y + 12).lineTo(545, y + 12).strokeColor(COLORS.border).stroke();
+          y += 20;
+
+          doc.font("Helvetica").fillColor("#000");
+          data.prescription.medicines.forEach(med => {
+            doc.text(med.name || "-", 60, y, { width: 130 });
+            doc.text(med.dosage || "-", 200, y);
+            doc.text(med.frequency || "-", 280, y);
+            doc.text(med.duration || "-", 340, y);
+            doc.text(med.mealInstruction || "-", 400, y);
+            y += 25;
+          });
+          y += 20;
+
+          if (data.report?.treatmentAdvice || data.report?.additionalNotes) {
+            y = drawSectionTitle("Advice & Notes", y);
+            if (data.report.treatmentAdvice) {
+              doc.font("Helvetica-Bold").text("Advice:", 60, y);
+              doc.font("Helvetica").text(data.report.treatmentAdvice, 120, y, { width: 400 });
+              y += doc.heightOfString(data.report.treatmentAdvice, { width: 400 }) + 10;
+            }
+            if (data.report.additionalNotes) {
+              doc.font("Helvetica-Bold").text("Notes:", 60, y);
+              doc.font("Helvetica").text(data.report.additionalNotes, 120, y, { width: 400 });
+            }
+          }
+
+          drawFooter(pageCounter);
+        }
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 5: SCAN REPORTS
+        // ---------------------------------------------------------
+        if (data.scanReport) {
+          doc.addPage();
+          pageCounter++;
+          drawHeader();
+          let y = 130;
+          doc.font("Helvetica-Bold").fontSize(16).fillColor(COLORS.secondary).text("Radiology / Scan Report", 50, y);
+          y += 30;
+
+          const scan = data.scanReport;
+
+          y = drawSectionTitle(`Scan: ${scan.scanName || "General"}`, y);
+
+          const drawField = (lbl, val) => {
+            doc.font("Helvetica-Bold").fontSize(10).fillColor("#000").text(lbl, 60, y, { width: 100 });
+            doc.font("Helvetica").text(val || "-", 160, y, { width: 350 });
+            y += 20;
+          };
+
+          drawField("Type:", scan.type);
+          drawField("Date:", scan.scanDate ? new Date(scan.scanDate).toLocaleDateString() : "-");
+          y += 10;
+
+          drawField("Description:", scan.description);
+          drawField("Indication:", scan.indication);
+          y += 10;
+
+          doc.fillColor(COLORS.primary).font("Helvetica-Bold").text("Findings:", 60, y);
+          y += 15;
+          doc.fillColor("#000").font("Helvetica").text(scan.findings || "No findings recorded.", 60, y, { width: 480 });
+          y += doc.heightOfString(scan.findings || "", { width: 480 }) + 20;
+
+          doc.fillColor(COLORS.primary).font("Helvetica-Bold").text("Impression:", 60, y);
+          y += 15;
+          doc.fillColor("#000").font("Helvetica").text(scan.impression || "-", 60, y, { width: 480 });
+
+          drawFooter(pageCounter);
+        }
+
+        // ---------------------------------------------------------
+        // 📄 PAGE 5-B: LAB REPORTS
+        // ---------------------------------------------------------
+        if (data.labReport) {
+          doc.addPage();
+          pageCounter++;
+          drawHeader();
+          let y = 130;
+          doc.font("Helvetica-Bold").fontSize(16).fillColor(COLORS.secondary).text("Laboratory Report", 50, y);
+          y += 30;
+
+          const lab = data.labReport;
+
+          y = drawSectionTitle(`Test: ${lab.testName || "Lab Test"}`, y);
+
+          const drawField = (lbl, val) => {
+            doc.font("Helvetica-Bold").fontSize(10).fillColor("#000").text(lbl, 60, y, { width: 100 });
+            doc.font("Helvetica").text(val || "-", 160, y, { width: 350 });
+            y += 20;
+          };
+
+          drawField("Test Type:", lab.testType);
+          drawField("Date:", lab.testDate ? new Date(lab.testDate).toLocaleDateString() : "-");
+          drawField("Status:", lab.status || "Completed");
+          y += 10;
+
+          // Test Results Section
+          if (lab.result || lab.testResult) {
+            y = drawSectionTitle("Test Results", y);
+
+            // If result is just a string/text
+            const resultText = lab.result || lab.testResult;
+            if (typeof resultText === 'string') {
+              doc.font("Helvetica").fillColor("#000").text(resultText, 60, y, { width: 480 });
+              y += doc.heightOfString(resultText, { width: 480 }) + 20;
+            } else if (Array.isArray(resultText)) {
+              // If it's an array of objects (parameter, value, unit, range)
+              // Adjust if your model allows structured results
+              doc.fontSize(10).font("Helvetica-Bold").fillColor(COLORS.secondary);
+              doc.text("Parameter", 60, y);
+              doc.text("Value", 260, y);
+              doc.text("Unit", 360, y);
+              doc.text("Ref. Range", 440, y);
+
+              doc.moveTo(50, y + 15).lineTo(545, y + 15).strokeColor(COLORS.border).stroke();
+              y += 25;
+
+              resultText.forEach(res => {
+                doc.font("Helvetica").fillColor("#000");
+                doc.text(res.parameterName || "-", 60, y, { width: 190 });
+                doc.text(res.value || "-", 260, y);
+                doc.text(res.unit || "-", 360, y);
+                doc.text(res.referenceRange || "-", 440, y);
+                y += 20;
+              });
+              y += 20;
+            }
+          }
+
+          // Notes / Comments
+          if (lab.notes || lab.comments) {
+            y = drawSectionTitle("Notes / Clinical Comments", y);
+            doc.font("Helvetica").fillColor("#000").text(lab.notes || lab.comments, 60, y, { width: 480 });
+            y += doc.heightOfString(lab.notes || lab.comments, { width: 480 }) + 20;
+          }
+
+          drawFooter(pageCounter);
+        }
+
+      }); // End loop
+
+      doc.end();
+
+      stream.on("finish", () => {
+        resolve({ buffer: fs.readFileSync(pdfPath), path: pdfPath });
+      });
+
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
